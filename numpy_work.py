@@ -61,8 +61,8 @@ print(top_10_students) #printing the marks, total marks percentage, pass or fail
 
 
 #standard deviation of marks in each subject and total marks percentage of all students. We will be using the following functions to calculate the standard deviation:
-std_dev_marks = np.std(data[:,:5], axis=0) #calculating the standard deviation of marks in each subject by taking the std of the first 5 columns of the data array
-std_dev_total_marks_percentage = np.std(data[:,5]) #calculating the standard deviation of total marks percentage of all students by taking the std of the 6th column of the data array
+std_dev_marks = np.std(data[:,:5].astype(float), axis=0) #calculating the standard deviation of marks in each subject by taking the std of the first 5 columns of the data array
+std_dev_total_marks_percentage = np.std(data[:,5].astype(float)) #calculating the standard deviation of total marks percentage of all students by taking the std of the 6th column of the data array
 print("---------------------------------------------------------------------------------------- ")
 print("Standard Deviation of Marks in Each Subject: ", std_dev_marks) #printing the standard deviation of marks in each subject
 print("Standard Deviation of Total Marks Percentage of All Students: ", std_dev_total_marks_percentage) #printing the standard deviation of total marks percentage of all students      
@@ -70,16 +70,34 @@ print("Standard Deviation of Total Marks Percentage of All Students: ", std_dev_
 
 #Variance of marks in each subject and total marks percentage of all students. We will be using the following functions to calculate the variance:
 
-variance_marks = np.var(data[:,:5], axis=0) #calculating the variance of marks in each subject by taking the var of the first 5 columns of the data array
-variance_total_marks_percentage = np.var(data[:,5]) #calculating the variance of total marks percentage of all students by taking the var of the 6th column of the data array
+variance_marks = np.var(data[:,:5].astype(float), axis=0) #calculating the variance of marks in each subject by taking the var of the first 5 columns of the data array
+variance_total_marks_percentage = np.var(data[:,5].astype(float)) #calculating the variance of total marks percentage of all students by taking the var of the 6th column of the data array
 print("---------------------------------------------------------------------------------------- ")
 print("Variance of Marks in Each Subject: ", variance_marks) #printing the  variance of marks in each subject       
 
 print("Variance of Total Marks Percentage of All Students: ", variance_total_marks_percentage) #printing the variance of total marks percentage of all students     
 
 #Coorelation martix between marks of each subject and total marks percentage of all students. We will be using the following functions to calculate the coorelation matrix:
-correlation_matrix = np.corrcoef(data[:,:6].T) #calculating the coorelation matrix between marks of each subject and total marks percentage of all students by taking the corr
+correlation_matrix = np.corrcoef(data[:,:6].astype(float).T) #calculating the coorelation matrix between marks of each subject and total marks percentage of all students by taking the corr
 #coef of the first 6 columns of the data array and transposing it to get the coorelation between each subject and total marks percentage
 print("---------------------------------------------------------------------------------------- ")
 print("Coorelation Matrix Between Marks of Each Subject and Total Marks Percentage of All Students: ")
 print(correlation_matrix) #printing the coorelation matrix between marks of each subject and total marks percentage of all students 
+
+#Normalization of marks in each subject and total marks percentage of all students. We will be using the following functions to normalize the marks:
+normalized_marks = (data[:,:5].astype(float) - np.min(data[:,:5].astype(float), axis=0)) / (np.max(data[:,:5].astype(float), axis=0) - np.min(data[:,:5].astype(float), axis=0)) #normalizing the marks in each subject by applying the min-max normalization formula to the first 5 columns of the data array
+normalized_total_marks_percentage = (data[:,5].astype(float) - np.min(data[:,5].astype(float))) / (np.max(data[:,5].astype(float)) - np.min(data[:,5].astype(float))) #normalizing the total marks percentage of all students by applying the min-max normalization formula to the 6th column of the data array
+print("---------------------------------------------------------------------------------------- ")
+print("Normalized Marks in Each Subject: ")
+print(normalized_marks) #printing the normalized marks in each subject
+print("Normalized Total Marks Percentage of All Students: ")
+print(normalized_total_marks_percentage) #printing the normalized total marks percentage of all students        
+
+#Using z score normalization to normalize the marks in each subject and total marks percentage of all students. We will be using the following functions to normalize the marks using z score normalization:
+z_score_normalized_marks = (data[:,:5].astype(float) - np.mean(data[:,:5].astype(float), axis=0)) / np.std(data[:,:5].astype(float), axis=0) #normalizing the marks in each subject by applying the z score normalization formula to the first 5 columns of the data array
+z_score_normalized_total_marks_percentage = (data[:,5].astype(float) - np.mean(data[:,5].astype(float))) / np.std(data[:,5].astype(float)) #normalizing the total marks percentage of all students by applying the z score normalization formula to the 6th column of the data array
+print("---------------------------------------------------------------------------------------- ")
+print("Z Score Normalized Marks in Each Subject: ")         
+print(z_score_normalized_marks) #printing the z score normalized marks in each subject
+print("Z Score Normalized Total Marks Percentage of All Students: ")
+print(z_score_normalized_total_marks_percentage) #printing the z score normalized total marks percentage of all students
