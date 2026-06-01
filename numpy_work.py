@@ -58,3 +58,28 @@ top_10_students = data[np.argsort(data[:,5])[-10:]] #sorting
 print("---------------------------------------------------------------------------------------- ")
 print("Top 10 Students Based on Total Marks Percentage: ")
 print(top_10_students) #printing the marks, total marks percentage, pass or fail status
+
+
+#standard deviation of marks in each subject and total marks percentage of all students. We will be using the following functions to calculate the standard deviation:
+std_dev_marks = np.std(data[:,:5], axis=0) #calculating the standard deviation of marks in each subject by taking the std of the first 5 columns of the data array
+std_dev_total_marks_percentage = np.std(data[:,5]) #calculating the standard deviation of total marks percentage of all students by taking the std of the 6th column of the data array
+print("---------------------------------------------------------------------------------------- ")
+print("Standard Deviation of Marks in Each Subject: ", std_dev_marks) #printing the standard deviation of marks in each subject
+print("Standard Deviation of Total Marks Percentage of All Students: ", std_dev_total_marks_percentage) #printing the standard deviation of total marks percentage of all students      
+
+
+#Variance of marks in each subject and total marks percentage of all students. We will be using the following functions to calculate the variance:
+
+variance_marks = np.var(data[:,:5], axis=0) #calculating the variance of marks in each subject by taking the var of the first 5 columns of the data array
+variance_total_marks_percentage = np.var(data[:,5]) #calculating the variance of total marks percentage of all students by taking the var of the 6th column of the data array
+print("---------------------------------------------------------------------------------------- ")
+print("Variance of Marks in Each Subject: ", variance_marks) #printing the  variance of marks in each subject       
+
+print("Variance of Total Marks Percentage of All Students: ", variance_total_marks_percentage) #printing the variance of total marks percentage of all students     
+
+#Coorelation martix between marks of each subject and total marks percentage of all students. We will be using the following functions to calculate the coorelation matrix:
+correlation_matrix = np.corrcoef(data[:,:6].T) #calculating the coorelation matrix between marks of each subject and total marks percentage of all students by taking the corr
+#coef of the first 6 columns of the data array and transposing it to get the coorelation between each subject and total marks percentage
+print("---------------------------------------------------------------------------------------- ")
+print("Coorelation Matrix Between Marks of Each Subject and Total Marks Percentage of All Students: ")
+print(correlation_matrix) #printing the coorelation matrix between marks of each subject and total marks percentage of all students 
