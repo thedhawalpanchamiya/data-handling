@@ -101,3 +101,25 @@ print("Z Score Normalized Marks in Each Subject: ")
 print(z_score_normalized_marks) #printing the z score normalized marks in each subject
 print("Z Score Normalized Total Marks Percentage of All Students: ")
 print(z_score_normalized_total_marks_percentage) #printing the z score normalized total marks percentage of all students
+
+#Vectorized operations to calculate the pass or fail status of each student based on the marks obtained by each student in all subjects. We will be using the following functions to calculate the pass or fail status using vectorized operations:
+vectorized_pf_status = np.where(data[:,:5].astype(float) >= 40, 1, 0) #calculating the pass or fail status of each student based on the
+
+marks obtained by each student in all subjects by applying the condition to the first 5 columns of the data array using vectorized operations
+final_vectorized_pf_status = np.array([1 if np.all(row == 1) else 0 for row in vectorized_pf_status]) #applying the condition to each row of the vectorized_pf_status array to get the final pass or fail status of each student based on the marks obtained by each student in all subjects using vectorized operations
+print("---------------------------------------------------------------------------------------- ")
+print("Pass or Fail Status of Each Student Based on Marks Obtained in All Subjects Using Vectorized Operations: ")
+print(final_vectorized_pf_status) #printing the pass or fail status of each student based on the marks obtained by each student in all subjects using vectorized operations         
+
+
+#Loop Based Operations to calculate the pass or fail status of each student based on the marks obtained by each student in all subjects. We will be using the following functions to calculate the pass or fail status using loop based operations:
+loop_based_pf_status = [] #initializing an empty list to store the pass or fail status of each student based on the marks obtained by each student in all subjects using loop based operations
+for row in data: #iterating     
+    if np.all(row[:5].astype(float) >= 40): #checking if the marks obtained by each student in all subjects are greater than or equal to 40
+        loop_based_pf_status.append(1) #if the condition is true, then the student is considered as passed and we append 1 to the list
+    else:
+        loop_based_pf_status.append(0) #if the condition is false, then the student is considered as failed and we append 0 to the list
+print("---------------------------------------------------------------------------------------- ")
+print("Pass or Fail Status of Each Student Based on Marks Obtained in All Subjects Using Loop Based Operations: ")
+print(loop_based_pf_status) #printing the pass or fail status of each student based on the marks obtained by each student in all subjects using loop based operations   
+
