@@ -123,3 +123,33 @@ print("-------------------------------------------------------------------------
 print("Pass or Fail Status of Each Student Based on Marks Obtained in All Subjects Using Loop Based Operations: ")
 print(loop_based_pf_status) #printing the pass or fail status of each student based on the marks obtained by each student in all subjects using loop based operations   
 
+#Advance Insights:
+#Students who improved consistently (sorted marks in each subject and total marks percentage of all students and then find the students who have improved consistently in all subjects and total marks percentage) 
+sorted_data = data[np.argsort(data[:,5].astype(float))] #sorting the data array based on the total marks percentage of all students
+improved_students = [] #initializing an empty list to store the students who have improved consistently
+for i in range(1, len(sorted_data)): #iterating through the sorted data array       
+    if np.all(sorted_data[i,:5].astype(float) >= sorted_data[i-1,:5].astype(float)) and sorted_data[i,5].astype(float) >= sorted_data[i-1,5].astype(float): #checking if the marks obtained by each student in all subjects and total marks percentage of all students are greater than or equal to the previous student in the sorted data array
+        improved_students.append(sorted_data[i]) #if the condition is true, then the student is considered as improved consistently and we append the student data to the list
+print("---------------------------------------------------------------------------------------- ")
+print("Students Who Improved Consistently: ")
+print(improved_students) #printing the students who have improved consistently in all subjects and total marks percentage of all students
+
+#Students with highly uneven performance (find the students who have a high standard deviation in marks across all subjects and total marks percentage)
+uneven_performance_students = [] #initializing an empty list to store the students who have a high standard deviation in marks across all subjects and total marks percentage
+for row in data: #  iterating through the data array
+    if np.std(row[:5].astype(float)) > 15 and np.std(row[5].astype(float)) > 15: #checking if the standard deviation of marks in all subjects and total marks percentage of all students is greater than 15
+        uneven_performance_students.append(row) #if the condition is true, then the student is considered as having a highly uneven performance and we append the student data to the list      
+print("---------------------------------------------------------------------------------------- ")
+print("Students with Highly Uneven Performance: ")      
+print(uneven_performance_students) #printing the students who have a high standard deviation in marks across all subjects and total marks percentage of all students
+
+#Subject hardest for students (lowest average marks in a subject and total marks percentage)
+average_marks_subjects = np.mean(data[:,:5].astype(float), axis=0) #calculating the average marks in each subject by taking the mean of the first 5 columns of the data array
+average_total_marks_percentage = np.mean(data[:,5].astype(float)) #calculating the average total marks percentage of all students by taking the mean of the 6th column of the data array
+hardest_subject_index = np.argmin(average_marks_subjects) #finding the index of the subject with the lowest average marks by using the argmin function on the average marks in each subject
+print("---------------------------------------------------------------------------------------- ")      
+print("Subject Hardest for Students: Subject ", hardest_subject_index + 1) #printing the subject which is hardest for students based on the lowest average marks in a subject
+print("Average Marks in Each Subject: ", average_marks_subjects) #printing the average marks in each subject
+print("Average Total Marks Percentage of All Students: ", average_total_marks_percentage) #printing the average total marks percentage of all students
+
+    
