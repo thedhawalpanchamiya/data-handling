@@ -39,7 +39,7 @@ else:    print("There are no missing values in the dataframe.")
 avg_score = df[['G1', 'G2', 'G3']].mean(axis=1)
 print(avg_score)
 
-#we have avg score now if a student is at 40 percentile or above he is considered as pass otherwise fail. We will be creating a function named pass_fail and use avg_score as input and generate a new np array contain 0 or 1 and this information to new csv name processed_student_data.csv
+#we have avg score now if a student is at 40 percentile or above he is considered as pass otherwise fail. We will be creating a function named pass_fail and use avg_score as input and generate a new np array contain 0 and 1 where 1 is for pass and 0 is for fail. We will then add this new array as a new column in the dataframe and print the first 5 rows of the dataframe to see the new column.
 def pass_fail(score):
     if score >= 40:
         return 1
@@ -49,3 +49,23 @@ def pass_fail(score):
 df['pass_fail'] = avg_score.apply(pass_fail)    
 print(df.head())
 
+#Avg class score:
+print(df['pass_fail'].mean(), " is the average class score.")
+
+#Highest and lowest score in the class:
+print(avg_score.max(), " is the highest score in the class")
+print(avg_score.min(), " is the lowest score in the class")
+
+print(df['G1'].mean(), " is the average score of G1")
+print(df['G2'].mean(), " is the average score of G2")
+print(df['G3'].mean(), " is the average score of G3")   
+
+#compare the average score of G1, G2 and G3 to see if there is any improvement in the scores of the students over time.
+print("Average score of G1: ", df['G1'].mean())
+print("Average score of G2: ", df['G2'].mean())
+print("Average score of G3: ", df['G3'].mean()) 
+
+if df['G1'].mean() < df['G2'].mean() < df['G3'].mean():
+    print("There is an improvement in the scores of the students over time.")
+else:
+    print("There is no improvement in the scores of the students over time.")
