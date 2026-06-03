@@ -1,3 +1,5 @@
+
+
 #In this code file. I will be doing some work with pandas to get a better understanding of how they work and how to use them in my projects. I will be creating some pandas dataframes and performing some operations on them to get insights from the data. I will also be saving the insights in a text file for future reference.
 
 #First i will import the necessary libraries and then i will create some pandas dataframes to work with.
@@ -9,6 +11,7 @@ import numpy as np
 #https://www.kaggle.com/datasets/devansodariya/student-performance-data is url of the dataset.
 #I will be downloading the dataset and then loading it into a pandas dataframe to work with it.
 #I will be using the read_csv function to load the dataset into a pandas dataframe.
+
 df = pd.read_csv('student_data.csv')
 
 #Now that we have loaded the dataset into a pandas dataframe, we can start performing some operations on it to get insights from the data.
@@ -16,9 +19,33 @@ df = pd.read_csv('student_data.csv')
 
 print(df.shape)
 
+#data unstanding
 print("-----------------------------")
-print(df.head())    
-
+print(df.head()) 
 print(df.info())
-
 print(df.describe()) #this is used to get the statistical summary of the dataframe. One of best functions in pandas.
+print(df.columns)
+
+#preprocessing the data
+#checking for missing values
+print(df.isnull().sum())    
+if df.isnull().sum().any():
+    print("There are missing values in the dataframe.")
+else:    print("There are no missing values in the dataframe.")     
+
+#As we can see there are no missing values in the dataframe, we can proceed with the analysis of the data.
+
+#We will be doing some analysis on the data to get insights from it. We will be dealing with "average score for all subject"
+avg_score = df[['G1', 'G2', 'G3']].mean(axis=1)
+print(avg_score)
+
+#we have avg score now if a student is at 40 percentile or above he is considered as pass otherwise fail. We will be creating a function named pass_fail and use avg_score as input and generate a new np array contain 0 or 1 and this information to new csv name processed_student_data.csv
+def pass_fail(score):
+    if score >= 40:
+        return 1
+    else:
+        return 0    
+    
+df['pass_fail'] = avg_score.apply(pass_fail)    
+print(df.head())
+
