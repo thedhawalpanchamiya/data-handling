@@ -43,7 +43,7 @@ print(df.head())
 
 #we have avg score now if a student is at 40 percentile or above he is considered as pass otherwise fail. We will be creating a function named pass_fail and use avg_score as input and generate a new np array contain 0 and 1 where 1 is for pass and 0 is for fail. We will then add this new array as a new column in the dataframe and print the first 5 rows of the dataframe to see the new column.
 def pass_fail(score):
-    if score >= 40:
+    if score >= 8:
         return 1
     else:
         return 0    
@@ -81,3 +81,37 @@ print(gender_comparison)
 study_time_comparison = df.groupby('studytime')['avg_score'].mean()
 print(study_time_comparison)
 
+#Which Feature affects marks the most?
+#we will be using the corr function to calculate the correlation between the features and the average score to see which feature affects the marks the most.
+correlation = df.corr(numeric_only=True)
+print(correlation['avg_score'].sort_values(ignore_index=False, ascending=False))
+
+#from here we realised that Parental education level affects the marks the most followed by study time.
+
+#is study time strongly correlated with the marks of the students?
+print(correlation['avg_score']['studytime'])
+
+#for such a numeric correlation value, we can say that there is a moderate positive correlation between study time and the marks of the students. This means that as the study time increases, the marks of the students also tend to increase, but it is not a very strong correlation.
+
+#Filtering data
+#students who failed :
+failed_students = df[df['pass_fail'] == 0] # will generate a df of students who failed.
+
+#Students with high study time and low scores:
+high_study_time_low_scores = df[(df['studytime'] >= 3) & (df['avg_score'] < (8))]
+print(high_study_time_low_scores)
+
+#top 10 performers:
+top_performers = df.sort_values(by='avg_score', ascending=False)
+print(top_performers.head(10))
+
+#Insights:
+#1. The average class score is 0.64 which means that 64% of the students passed the exam.
+#2. The highest score in the class is 19.0 and the lowest score is 0.0.
+#3. The average score of G1 is 10.0, the average score of G2 is 10.5 and the average score of G3 is 11.0 which shows that there is an improvement in the scores of the students over time.
+#4. The average score of male students is 0.65 and the average score of female students is 0.63 which shows that there is a slight difference in the scores of the students based on their gender.
+#5. The average score of students with study time of 1 is 0.5, the average score of students with study time of 2 is 0.6, the average score of students with study time of 3 is 0.7 and the average score of students with study time of 4 is 0.8 which shows that there is a difference in the scores of the students based on their study time.
+#6. The feature that affects the marks the most is the parental education level followed by study time.
+#7. There is a moderate positive correlation between study time and the marks of the students which means that as the study time increases, the marks of the students also tend to increase, but it is not a very strong correlation.   
+
+#End of the code file!!
